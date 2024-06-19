@@ -233,9 +233,6 @@
         });
         const feedUrl = params.feedId ? "/feeds/" + params.feedId : "/feeds";
         htmx.ajax("GET", feedUrl, {target: "#welcome", swap: "outerHTML"});
-        console.log("loaded");
-        htmx.ajax("GET", "/feeds", {target: ".offcanvas-body"});
-        console.log("loaded");
     };
 </script>
 </body>
