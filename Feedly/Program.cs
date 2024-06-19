@@ -140,13 +140,13 @@ app.MapGet("/feeds", async (FeedlyRepository repo, ClaimsPrincipal claimsPrincip
         """
         <div class="logout container-fluid h-100">
         <div class="row h-100">
-        <div class="col-3 d-md-block d-none overflow-y-auto h-100 border-2 border-end logout">
+        <div class="col-12 col-md-3 overflow-y-auto h-md-100 border-2 border-end logout">
             <p class="text-center mt-2">Your Feeds</p>
                 <div class="list-group shadow-lg " id="list-tab" role="tablist">
         """,
         (current, feed) =>
             current + $"""
-                       <div class="container" id="feed{feed.Id}">
+                       <div class="container-fluid" id="feed{feed.Id}">
                        <div class="row">
                        <div type="button" data-bs-toggle="list" class="list-group-item list-group-item-action d-flex" hx-get="/feeds/{feed.Id}" hx-swap="innerHTML" hx-target="#content">
                            <div class="me-auto text-truncate align-items-center d-flex" style="height: 32px">{feed.Title}</div>
@@ -189,7 +189,7 @@ app.MapGet("/feeds", async (FeedlyRepository repo, ClaimsPrincipal claimsPrincip
             </div>
         </div>
             
-        <div class="col-md-9 overflow-y-auto h-100 logout" id="content">
+        <div class="col-md-9 overflow-y-auto h-md-100 logout" id="content">
             <div id="viewFeed" class="d-flex justify-content-center align-items-center h-100">
                 <p class="text-center">Select a feed to view</p>
             </div>
@@ -218,18 +218,18 @@ app.MapPost("/feeds", async ([FromForm] string feedUrl, FeedlyRepository repo, C
 
         var html =
             $"""
-             <div class="container" id="feed{feed.Id}">
+             <div class="container-fluid" id="feed{newfeed.Id}">
              <div class="row">
-             <div type="button" data-bs-toggle="list" class="list-group-item list-group-item-action d-flex" hx-get="/feeds/{feed.Id}" hx-swap="innerHTML" hx-target="#content">
+             <div type="button" data-bs-toggle="list" class="list-group-item list-group-item-action d-flex" hx-get="/feeds/{newfeed.Id}" hx-swap="innerHTML" hx-target="#content">
                  <div class="me-auto text-truncate align-items-center d-flex" style="height: 32px">{feed.Title}</div>
              </div>
-             <button hx-delete="/feeds/{feed.Id}" hx-target="#feed{feed.Id}" hx-swap="delete" type="button" class="btn btn-danger btn-sm deleteFeed d-none">
+             <button hx-delete="/feeds/{newfeed.Id}" hx-target="#feed{newfeed.Id}" hx-swap="delete" type="button" class="btn btn-danger btn-sm deleteFeed d-none">
                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                  class="bi bi-x" viewBox="0 0 16 16">
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                  </svg>
              </button>
-             <button hx-patch="/feeds/share/{feed.Id}" hx-swap="none" class="btn btn-primary btn-sm shareFeed d-none">
+             <button hx-patch="/feeds/share/{newfeed.Id}" hx-swap="none" class="btn btn-primary btn-sm shareFeed d-none">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
                <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
              </svg>
